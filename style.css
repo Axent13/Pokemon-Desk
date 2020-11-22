@@ -472,3 +472,12 @@ h1 {
 .action label {
     padding: 6px 0;
 }
+
+#logs {
+    background: white;
+    border: 2px solid #ffc55b;
+    border-radius: 10px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
