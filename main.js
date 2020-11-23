@@ -16,14 +16,37 @@ const enemy = {
     elProgressbar: document.getElementById('progressbar-enemy'),
 }
 
+function clicksCounter(count = 0, maxCount = 6) {
+    return function() {
+        if (count < maxCount) {
+            return ++count;
+        } else {
+            return -1;
+        }
+    }
+}
+
+const firstBtnCounter = clicksCounter();
+const secondBtnCounter = clicksCounter();
+
 $btn.addEventListener('click', function () {
-    console.log('Kick');
-    makeKicks(20, 20);
+    const clicksCount = firstBtnCounter();
+    if (clicksCount === -1) {
+        console.log('Закончились клики!');
+    } else {
+        console.log(`Сделано ${clicksCount} кликов из 6-ти.\nОсталось ${6 - clicksCount} нажатий!`);
+        makeKicks(20, 20);
+    }
 });
 
 $secondBtn.addEventListener('click', function () {
-    console.log('Second Kick');
-    makeKicks(50, 20);
+    const clicksCount = secondBtnCounter();
+    if (clicksCount === -1) {
+        console.log('Закончились клики!');
+    } else {
+        console.log(`Сделано ${clicksCount} кликов из 6-ти.\nОсталось ${6 - clicksCount} нажатий!`);
+        makeKicks(50, 20);
+    }
 });
 
 function makeKicks(characterPower, enemyPower) {
@@ -62,8 +85,6 @@ function changeHP(count, person) {
     renderHP(person);
 }
 
-function random(num) {
-    return Math.ceil(Math.random() * num);
-}
+const random = (num) => Math.ceil(Math.random() * num);
 
 init();
