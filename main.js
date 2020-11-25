@@ -29,43 +29,32 @@ const enemy = {
     renderProgressbarHP: renderProgressbarHP,
 }
 
-function clicksCounter(count = 0, maxCount = 6) {
-    return function() {
-        if (count < maxCount) {
-            return ++count;
-        } else {
-            return -1;
-        }
-    }
-}
-
-const firstBtnCounter = clicksCounter();
-const secondBtnCounter = clicksCounter();
-
+const firstBtnCount = countBtn(6, $btn);
 $btn.addEventListener('click', function () {
-    const clicksCount = firstBtnCounter();
-    if (clicksCount === -1) {
-        console.log('Закончились клики!');
-    } else {
-        console.log(`Сделано ${clicksCount} кликов из 6-ти.\nОсталось ${6 - clicksCount} нажатий!`);
-        makeKicks(20, 20);
-    }
+    firstBtnCount();
+    character.changeHP(random(60, 20));
+    enemy.changeHP(random(60, 20));
 });
 
-$secondBtn.addEventListener('click', function () {
-    const clicksCount = secondBtnCounter();
-    if (clicksCount === -1) {
-        console.log('Закончились клики!');
-    } else {
-        console.log(`Сделано ${clicksCount} кликов из 6-ти.\nОсталось ${6 - clicksCount} нажатий!`);
-        makeKicks(50, 20);
+function countBtn(count = 6, el) {
+    const innerText = el.innerText;
+    el.innerText = `${innerText} (${count})`;
+    return function () {
+        count--;
+        if (count === 0) {
+            el.disabled = true;
+        }
+        el.innerText = `${innerText} (${count})`;
+        return count;
     }
-});
-
-function makeKicks(characterPower, enemyPower) {
-    character.changeHP(random(enemyPower));
-    enemy.changeHP(random(characterPower));
 }
+
+const secondBtnCount = countBtn(10, $secondBtn);
+$secondBtn.addEventListener('click', function () {
+    secondBtnCount();
+    character.changeHP(random(20));
+    enemy.changeHP(random(20));
+});
 
 function init() {
     character.renderHP();
@@ -101,7 +90,10 @@ function changeHP(count) {
     this.renderHP();
 }
 
-const random = (num) => Math.ceil(Math.random() * num);
+function random(max, min = 0) {
+    const num = max - min;
+    return Math.ceil(Math.random() * num) + min;
+}
 
 function generateLog(firstPerson, secondPerson, damage) {
     const logs = [
