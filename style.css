@@ -35,12 +35,13 @@ body {
 }
 
 .control {
-    width: 320px;
+    width: 360px;
     height: 260px;
     position: relative;
     margin: 20px;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -270,6 +271,7 @@ body {
     background: white;
     border: 2px solid #ffc55b;
     border-radius: 10px;
+    width: 160px;
     min-height: 30px;
     vertical-align: middle;
     padding: 12px 20px;
@@ -299,6 +301,10 @@ body {
     background: -webkit-gradient(linear, left top, left bottom, from(#ffd78e), to(#ffc55b));
     background: linear-gradient(to bottom, #ffd78e, #ffc55b);
     box-shadow: 0 0 5px 2px white, 0 0 15px #ffe9c1, 0 3px 5px -2px rgba(0, 0, 0, 0.2);
+}
+.start-button,
+.restart-button {
+    width: 100%;
 }
 
 .candy {
